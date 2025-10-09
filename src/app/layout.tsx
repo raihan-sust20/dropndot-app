@@ -9,7 +9,6 @@ import Sidebar from "./ui/components/Sidebar";
 import Footer from "./ui/components/Footer";
 import Toolbar from "@mui/material/Toolbar";
 
-
 const poppins = Poppins({
   subsets: ["latin"],
   variable: "--font-poppins",
@@ -24,12 +23,12 @@ export const metadata: Metadata = {
 export default function RootLayout(props: { children: React.ReactNode }) {
   return (
     <html lang="en" suppressHydrationWarning className={poppins.variable}>
-      <body >
+      <body>
         <AppRouterCacheProvider>
           <ThemeProvider theme={theme}>
             <CssBaseline />
             <Header />
-            <Toolbar />
+            <Toolbar sx={{ minHeight: { sm: "88px" } }} />
             <Sidebar />
             <main
               style={{

@@ -1,14 +1,10 @@
-implement a mui footer comoponent with following context:
-
-- 48px horizontal padding with theme spacing
-- text color: black
-- text size: around 16 px and regular weight with theme typography
-- 32px vertical padding with theme spacing
-
-left side of footer:
-  - text: Copyright @ Realseo.digital 2023
-  
-
-right side of footer:
-  - text:Terms and Conditions
-  - text:Privacy Policy
+implement Next.js page.tsx with following context:
+use MUI as Css library.
+the main container has following specification:
+  - top margin: 24px
+  - padding: 24px
+  - add subtitle text: Add New Client. text color will be black.
+  - under subtitle there should be a static determinant linear progress bar with spec:
+    - top margin: 24px
+    - progress value: 10
+    - color: primary.main

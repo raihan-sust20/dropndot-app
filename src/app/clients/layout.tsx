@@ -20,8 +20,8 @@ export default function ClientsLayout({
       {/* Breadcrumbs Section */}
       <Breadcrumbs
         aria-label="breadcrumb"
-        separator={<NavigateNextIcon fontSize="small" />}
-        sx={{ mb: 2, mt: 3, mx: 3 }}
+        separator={<NavigateNextIcon fontSize="small" sx={{ color: "black"}}/>}
+        sx={{ mb: 2, mt: 2.5 }}
       >
         <Link
           component={NextLink}

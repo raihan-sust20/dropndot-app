@@ -1,10 +1,38 @@
-implement Next.js page.tsx with following context:
-use MUI as Css library.
-the main container has following specification:
-  - top margin: 24px
-  - padding: 24px
-  - add subtitle text: Add New Client. text color will be black.
-  - under subtitle there should be a static determinant linear progress bar with spec:
-    - top margin: 24px
-    - progress value: 10
-    - color: primary.main
+implement a add client form component with following context:
+
+- use react hook form with yup for form validation
+- use mui form component
+- use 36px horizontal padding
+- use 36px horizontal margin
+- use mui standard variant of form components
+- form component label spec:
+  - font size: 18px
+  - font weight: 500
+  - color: primary.dark
+- form component lable spec:
+  - font size: 18px
+  - font weight: 500
+  - color: black
+- add two buttons at lower right corner of the form
+  - back
+    - variant: outlined
+    - text and border color: black
+  - submit
+    - variant: contained
+    - button fill color: primary.main
+    - text: white
+
+- each row will take 3 inputs in following order:
+  first row:
+    - First Name
+    - Last Name
+    - Address
+  second row: 
+    - Date of Birth
+    - Contact Email
+    - Contact Cell Numb
+  - third row:
+    - company Name
+    - price
+    - comments
+for date of birth use built in calendar library

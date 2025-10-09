@@ -1,0 +1,14 @@
+implement a mui footer comoponent with following context:
+
+- 48px horizontal padding with theme spacing
+- text color: black
+- text size: around 16 px and regular weight with theme typography
+- 32px vertical padding with theme spacing
+
+left side of footer:
+  - text: Copyright @ Realseo.digital 2023
+  
+
+right side of footer:
+  - text:Terms and Conditions
+  - text:Privacy Policy

@@ -168,7 +168,7 @@ export default function ClientsPage() {
     const rows = clients
       .map(
         (c) =>
-          `${c.name},${c.address},${c.dateOfBirth},${c.email},${c.cell},${c.comments}`
+          `${c.name},${c.address},${c.dateOfBirth},${c.email},${c.cellNumber},${c.comments}`
       )
       .join("\n");
   
@@ -249,9 +249,9 @@ export default function ClientsPage() {
                     key={col.id}
                     sortDirection={orderBy === col.id ? order : false}
                     sx={{
-                      fontWeight: 600,
+                      fontWeight: 'fontWeightMedium',
                       borderBottom: "none",
-                      borderRight: "1px solid #ccc",
+                      borderRight: "1px solid #ccc"                      
                     }}
                   >
                     <TableSortLabel

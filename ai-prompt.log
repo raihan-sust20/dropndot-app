@@ -1,26 +1,5 @@
-implement next.js page.tsx to show client list.
-
-- padding: 24px
-- background color: white
-- add a `Download CSV` button with upload icon at upper left corner:
-  - icon should follow text
-  - variant: outlined
-  - button color: theme background paper
-  - text color: black
-- add table to list clients
-- use mui table for full controll
-- columns
-  - Client Name
-  - Address
-  - Date
-  - Email
-  - Cell
-  - Comments
-  
-- table data can be sorted based on all columns
-- table header row color: theme primary light
-- whole table border radius: 12px
-- each table row border radius: 12px
-- each row in even index color: #F9F9F9
-- each row in odd index color: white
-- each row has only vertical border between columns
+- add useEffect to fetch data from backend.
+- add proper error handling if fetching data from backend is failed.
+- while client list data is being fetched from backend show a indeterminant
+circular progress bar
+- add event handler for download csv event to download client list data as csv file

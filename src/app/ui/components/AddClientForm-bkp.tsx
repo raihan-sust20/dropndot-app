@@ -1,15 +1,12 @@
 "use client";
 
-import React, { useState } from "react";
+import React from "react";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import Grid from "@mui/material/Grid";
 import TextField from "@mui/material/TextField";
 import Typography from "@mui/material/Typography";
 import Stack from "@mui/material/Stack";
-import Skeleton from "@mui/material/Skeleton";
-import Alert from "@mui/material/Alert";
-import Collapse from "@mui/material/Collapse";
 import { useForm, Controller } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
@@ -17,9 +14,6 @@ import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 import { Theme, useTheme } from "@mui/material/styles";
-import IconButton from "@mui/material/IconButton";
-import CloseIcon from "@mui/icons-material/Close";
-import CircularProgress from "@mui/material/CircularProgress";
 
 // ✅ Validation Schema
 const schema = yup.object({
@@ -45,17 +39,11 @@ type FormValues = yup.InferType<typeof schema>;
 
 export default function AddClientForm() {
   const theme: Theme = useTheme();
-  const [isSubmitting, setIsSubmitting] = useState(false);
-  const [alert, setAlert] = useState<{
-    type: "success" | "error";
-    message: string;
-  } | null>(null);
 
   const {
     control,
     handleSubmit,
     formState: { errors },
-    reset,
   } = useForm({
     resolver: yupResolver(schema),
     defaultValues: {
@@ -71,32 +59,11 @@ export default function AddClientForm() {
     },
   });
 
-  // ✅ onSubmit handles backend communication
-  const onSubmit = async (data: FormValues) => {
-    try {
-      setIsSubmitting(true);
-      setAlert(null);
-
-      const response: any = await new Promise((resolve) => {
-        setTimeout(() => {
-          resolve({ ok: true });
-        }, 5000);
-      });
-
-      if (!response.ok) {
-        throw new Error("Failed to submit");
-      }
-
-      setAlert({ type: "success", message: "Client added successfully!" });
-      reset(); // clear fields on success
-    } catch (error) {
-      console.error(error);
-      setAlert({ type: "error", message: "Something went wrong" });
-    } finally {
-      setIsSubmitting(false);
-    }
+  const onSubmit = (data: FormValues) => {
+    console.log("✅ Submitted Data:", data);
   };
 
+  // ✅ Reusable field label style
   const labelStyle = {
     fontSize: "18px",
     fontWeight: 600,
@@ -112,48 +79,12 @@ export default function AddClientForm() {
         sx={{
           px: theme.spacing(4),
           mx: theme.spacing(4),
-          mt: theme.spacing(7),
+          mt: theme.spacing(8),
           display: "flex",
           flexDirection: "column",
           gap: 7,
         }}
       >
-        {/* ✅ Alert Section */}
-        {/* <Collapse in={!!alert}>
-          {alert && (
-            <Alert
-              severity={alert.type}
-              onClose={() => setAlert(null)}
-              sx={{ mb: 2 }}
-            >
-              {alert.message}
-            </Alert>
-          )}
-        </Collapse> */}
-
-        <Collapse in={!!alert}>
-          {alert && (
-            <Alert
-              severity={alert.type}
-              action={
-                <IconButton
-                  aria-label="close"
-                  color="inherit"
-                  size="small"
-                  onClick={() => {
-                    setAlert(null);
-                  }}
-                >
-                  <CloseIcon fontSize="inherit" />
-                </IconButton>
-              }
-              sx={{ mb: 2 }}
-            >
-              {alert.message}
-            </Alert>
-          )}
-        </Collapse>
-
         {/* ================= Row 1 ================= */}
         <Grid container spacing={3}>
           {/* First Name */}
@@ -170,7 +101,6 @@ export default function AddClientForm() {
                   fullWidth
                   error={!!errors.firstName}
                   helperText={errors.firstName?.message}
-                  disabled={isSubmitting}
                 />
               )}
             />
@@ -186,11 +116,10 @@ export default function AddClientForm() {
                 <TextField
                   {...field}
                   variant="standard"
-                  placeholder="Last Name"
+                  placeholder="First Name"
                   fullWidth
                   error={!!errors.lastName}
                   helperText={errors.lastName?.message}
-                  disabled={isSubmitting}
                 />
               )}
             />
@@ -210,7 +139,6 @@ export default function AddClientForm() {
                   fullWidth
                   error={!!errors.address}
                   helperText={errors.address?.message}
-                  disabled={isSubmitting}
                 />
               )}
             />
@@ -234,7 +162,6 @@ export default function AddClientForm() {
                       fullWidth: true,
                       error: !!errors.dateOfBirth,
                       helperText: errors.dateOfBirth?.message,
-                      disabled: isSubmitting,
                     },
                   }}
                 />
@@ -256,7 +183,6 @@ export default function AddClientForm() {
                   fullWidth
                   error={!!errors.email}
                   helperText={errors.email?.message}
-                  disabled={isSubmitting}
                 />
               )}
             />
@@ -276,7 +202,6 @@ export default function AddClientForm() {
                   fullWidth
                   error={!!errors.phone}
                   helperText={errors.phone?.message}
-                  disabled={isSubmitting}
                 />
               )}
             />
@@ -299,7 +224,6 @@ export default function AddClientForm() {
                   fullWidth
                   error={!!errors.company}
                   helperText={errors.company?.message}
-                  disabled={isSubmitting}
                 />
               )}
             />
@@ -320,7 +244,6 @@ export default function AddClientForm() {
                   fullWidth
                   error={!!errors.price}
                   helperText={errors.price?.message}
-                  disabled={isSubmitting}
                 />
               )}
             />
@@ -340,7 +263,6 @@ export default function AddClientForm() {
                   fullWidth
                   error={!!errors.comments}
                   helperText={errors.comments?.message}
-                  disabled={isSubmitting}
                 />
               )}
             />
@@ -356,7 +278,6 @@ export default function AddClientForm() {
         >
           <Button
             variant="outlined"
-            disabled={isSubmitting}
             sx={{
               color: "black",
               borderColor: "black",
@@ -366,37 +287,20 @@ export default function AddClientForm() {
             Back
           </Button>
 
-          <Box sx={{ position: "relative", display: "inline-flex" }}>
-            <Button
-              variant="contained"
-              type="submit"
-              disabled={isSubmitting}
-              sx={{
-                backgroundColor: "primary.main",
-                color: "white",
-                px: 3,
-                "&:hover": {
-                  backgroundColor: "primary.dark",
-                },
-              }}
-            >
-              Submit
-            </Button>
-
-            {isSubmitting && (
-              <CircularProgress
-                size={24}
-                color="primary"
-                sx={{
-                  position: "absolute",
-                  top: "50%",
-                  left: "50%",
-                  marginTop: "-12px",
-                  marginLeft: "-12px",
-                }}
-              />
-            )}
-          </Box>
+          <Button
+            variant="contained"
+            type="submit"
+            sx={{
+              backgroundColor: "primary.main",
+              color: "white",
+              px: 3,
+              "&:hover": {
+                backgroundColor: "primary.dark",
+              },
+            }}
+          >
+            Submit
+          </Button>
         </Stack>
       </Box>
     </LocalizationProvider>

@@ -1,38 +1,13 @@
-implement a add client form component with following context:
+make following update to the form:
 
-- use react hook form with yup for form validation
-- use mui form component
-- use 36px horizontal padding
-- use 36px horizontal margin
-- use mui standard variant of form components
-- form component label spec:
-  - font size: 18px
-  - font weight: 500
-  - color: primary.dark
-- form component lable spec:
-  - font size: 18px
-  - font weight: 500
-  - color: black
-- add two buttons at lower right corner of the form
-  - back
-    - variant: outlined
-    - text and border color: black
-  - submit
-    - variant: contained
-    - button fill color: primary.main
-    - text: white
-
-- each row will take 3 inputs in following order:
-  first row:
-    - First Name
-    - Last Name
-    - Address
-  second row: 
-    - Date of Birth
-    - Contact Email
-    - Contact Cell Numb
-  - third row:
-    - company Name
-    - price
-    - comments
-for date of birth use built in calendar library
+- update onsubmit method to send data to backend
+- when the form is submitting:
+  - all the input fields will be disabled
+  - back button is disabled
+  - show loading skeleton over submit button
+- if the data is submitted succesfully: 
+  - show success toast
+  - clean the input fields
+- if the data submit failed
+  - show error toast with message: something went wrong
+  - don't clean the input fields

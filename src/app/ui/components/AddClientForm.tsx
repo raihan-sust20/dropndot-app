@@ -1,13 +1,19 @@
 "use client";
 
 import React from "react";
-import { Box, Button, Grid, TextField, Typography, Stack } from "@mui/material";
+import Box from "@mui/material/Box";
+import Button from "@mui/material/Button";
+import Grid from "@mui/material/Grid";
+import TextField from "@mui/material/TextField";
+import Typography from "@mui/material/Typography";
+import Stack from "@mui/material/Stack";
 import { useForm, Controller } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
+import { Theme, useTheme } from "@mui/material/styles";
 
 // ✅ Validation Schema
 const schema = yup.object({
@@ -32,11 +38,13 @@ const schema = yup.object({
 type FormValues = yup.InferType<typeof schema>;
 
 export default function AddClientForm() {
+  const theme: Theme = useTheme();
+
   const {
     control,
     handleSubmit,
     formState: { errors },
-  } = useForm<FormValues>({
+  } = useForm({
     resolver: yupResolver(schema),
     defaultValues: {
       firstName: "",
@@ -46,7 +54,7 @@ export default function AddClientForm() {
       email: "",
       phone: "",
       company: "",
-      price: "",
+      price: 0,
       comments: "",
     },
   });
@@ -58,7 +66,7 @@ export default function AddClientForm() {
   // ✅ Reusable field label style
   const labelStyle = {
     fontSize: "18px",
-    fontWeight: 500,
+    fontWeight: 600,
     color: "primary.dark",
     mb: 1,
   };
@@ -69,11 +77,12 @@ export default function AddClientForm() {
         component="form"
         onSubmit={handleSubmit(onSubmit)}
         sx={{
-          px: "36px",
-          mx: "36px",
+          px: theme.spacing(4),
+          mx: theme.spacing(4),
+          mt: theme.spacing(8),
           display: "flex",
           flexDirection: "column",
-          gap: 3,
+          gap: 7,
         }}
       >
         {/* ================= Row 1 ================= */}
@@ -88,6 +97,7 @@ export default function AddClientForm() {
                 <TextField
                   {...field}
                   variant="standard"
+                  placeholder="First Name"
                   fullWidth
                   error={!!errors.firstName}
                   helperText={errors.firstName?.message}
@@ -106,6 +116,7 @@ export default function AddClientForm() {
                 <TextField
                   {...field}
                   variant="standard"
+                  placeholder="First Name"
                   fullWidth
                   error={!!errors.lastName}
                   helperText={errors.lastName?.message}
@@ -124,6 +135,7 @@ export default function AddClientForm() {
                 <TextField
                   {...field}
                   variant="standard"
+                  placeholder="Type your Address"
                   fullWidth
                   error={!!errors.address}
                   helperText={errors.address?.message}
@@ -167,6 +179,7 @@ export default function AddClientForm() {
                 <TextField
                   {...field}
                   variant="standard"
+                  placeholder="Type your Email"
                   fullWidth
                   error={!!errors.email}
                   helperText={errors.email?.message}
@@ -185,6 +198,7 @@ export default function AddClientForm() {
                 <TextField
                   {...field}
                   variant="standard"
+                  placeholder="Type your Cell No"
                   fullWidth
                   error={!!errors.phone}
                   helperText={errors.phone?.message}
@@ -206,6 +220,7 @@ export default function AddClientForm() {
                 <TextField
                   {...field}
                   variant="standard"
+                  placeholder="Type here"
                   fullWidth
                   error={!!errors.company}
                   helperText={errors.company?.message}
@@ -225,6 +240,7 @@ export default function AddClientForm() {
                   {...field}
                   type="number"
                   variant="standard"
+                  placeholder="Please Select your Packages"
                   fullWidth
                   error={!!errors.price}
                   helperText={errors.price?.message}
@@ -243,9 +259,8 @@ export default function AddClientForm() {
                 <TextField
                   {...field}
                   variant="standard"
+                  placeholder="Type your comment here"
                   fullWidth
-                  multiline
-                  minRows={2}
                   error={!!errors.comments}
                   helperText={errors.comments?.message}
                 />

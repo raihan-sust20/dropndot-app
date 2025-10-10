@@ -11,6 +11,7 @@ export default function Footer() {
       component="footer"
       sx={{
         marginLeft: "267px",
+        marginTop: 4,
         px: theme.spacing(6), // 48px horizontal padding
         py: theme.spacing(4), // 32px vertical padding
         display: "flex",

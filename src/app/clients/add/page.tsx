@@ -2,6 +2,7 @@
 
 import { Box, Typography, LinearProgress } from "@mui/material";
 import { useTheme, Theme } from "@mui/material/styles";
+import AddClientForm from "../../ui/components/AddClientForm";
 
 export default function AddClientPage() {
   const theme: Theme = useTheme();
@@ -37,6 +38,8 @@ export default function AddClientPage() {
           },
         }}
       />
+
+    <AddClientForm />
     </Box>
   );
 }

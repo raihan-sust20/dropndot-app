@@ -18,10 +18,10 @@ const theme = createTheme({
     background: {
       default: "#F5F5F5",
       paper: "#F6F6F6",
-    },
-    typography: {
-      fontFamily: 'var(--font-poppins)',
-    },
+    }    
+  },
+  typography: {
+    fontFamily: 'var(--font-poppins)',
   },
   components: {
     MuiCssBaseline: {

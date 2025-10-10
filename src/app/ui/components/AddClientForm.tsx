@@ -1,6 +1,9 @@
 "use client";
 
 import React, { useState } from "react";
+import * as R from 'ramda';
+import axios from 'axios';
+import { formatISO } from "date-fns";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import Grid from "@mui/material/Grid";
@@ -28,11 +31,11 @@ const schema = yup.object({
   address: yup.string().required("Address is required"),
   dateOfBirth: yup.date().required("Date of birth is required").nullable(),
   email: yup.string().email("Invalid email").required("Email is required"),
-  phone: yup
+  cellNumber: yup
     .string()
     .matches(/^[0-9]{10,15}$/, "Phone number must be 10–15 digits")
     .required("Phone number is required"),
-  company: yup.string().required("Company name is required"),
+  companyName: yup.string().required("Company name is required"),
   price: yup
     .number()
     .typeError("Price must be a number")
@@ -64,8 +67,8 @@ export default function AddClientForm() {
       address: "",
       dateOfBirth: null,
       email: "",
-      phone: "",
-      company: "",
+      cellNumber: "",
+      companyName: "",
       price: 0,
       comments: "",
     },
@@ -77,15 +80,15 @@ export default function AddClientForm() {
       setIsSubmitting(true);
       setAlert(null);
 
-      const response: any = await new Promise((resolve) => {
-        setTimeout(() => {
-          resolve({ ok: true });
-        }, 5000);
-      });
-
-      if (!response.ok) {
-        throw new Error("Failed to submit");
-      }
+      const dateFormatedData = R.evolve(
+        {
+          dateOfBirth: (initDateOfBirth: Date) => formatISO(initDateOfBirth, { representation: "date" }),
+        },
+        data
+      );
+      
+      const url = `${process.env.NEXT_PUBLIC_API_URL}/clients`;
+      const response = await axios.post(url, dateFormatedData);
 
       setAlert({ type: "success", message: "Client added successfully!" });
       reset(); // clear fields on success
@@ -266,7 +269,7 @@ export default function AddClientForm() {
           <Grid size={{ xs: 12, md: 4 }}>
             <Typography sx={labelStyle}>Contact Cell Number</Typography>
             <Controller
-              name="phone"
+              name="cellNumber"
               control={control}
               render={({ field }) => (
                 <TextField
@@ -274,8 +277,8 @@ export default function AddClientForm() {
                   variant="standard"
                   placeholder="Type your Cell No"
                   fullWidth
-                  error={!!errors.phone}
-                  helperText={errors.phone?.message}
+                  error={!!errors.cellNumber}
+                  helperText={errors.cellNumber?.message}
                   disabled={isSubmitting}
                 />
               )}
@@ -289,7 +292,7 @@ export default function AddClientForm() {
           <Grid size={{ xs: 12, md: 4 }}>
             <Typography sx={labelStyle}>Company Name</Typography>
             <Controller
-              name="company"
+              name="companyName"
               control={control}
               render={({ field }) => (
                 <TextField
@@ -297,8 +300,8 @@ export default function AddClientForm() {
                   variant="standard"
                   placeholder="Type here"
                   fullWidth
-                  error={!!errors.company}
-                  helperText={errors.company?.message}
+                  error={!!errors.companyName}
+                  helperText={errors.companyName?.message}
                   disabled={isSubmitting}
                 />
               )}

@@ -27,7 +27,8 @@ function Header() {
     >
       <Container
         maxWidth="xl"
-        sx={{ px: theme.spacing(1.25), py: theme.spacing(1.5) }}
+        disableGutters
+        sx={{ px: 2, py: 1.5 }}
       >
         <Toolbar
           disableGutters
@@ -136,7 +137,7 @@ function Header() {
                 src="/vector-icon.svg"
                 alt="Dropdown"
                 width={10}
-                height={8}
+                height={7}
               />
             </Box>
           </Box>

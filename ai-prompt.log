@@ -1,13 +1,26 @@
-make following update to the form:
+implement next.js page.tsx to show client list.
 
-- update onsubmit method to send data to backend
-- when the form is submitting:
-  - all the input fields will be disabled
-  - back button is disabled
-  - show loading skeleton over submit button
-- if the data is submitted succesfully: 
-  - show success toast
-  - clean the input fields
-- if the data submit failed
-  - show error toast with message: something went wrong
-  - don't clean the input fields
+- padding: 24px
+- background color: white
+- add a `Download CSV` button with upload icon at upper left corner:
+  - icon should follow text
+  - variant: outlined
+  - button color: theme background paper
+  - text color: black
+- add table to list clients
+- use mui table for full controll
+- columns
+  - Client Name
+  - Address
+  - Date
+  - Email
+  - Cell
+  - Comments
+  
+- table data can be sorted based on all columns
+- table header row color: theme primary light
+- whole table border radius: 12px
+- each table row border radius: 12px
+- each row in even index color: #F9F9F9
+- each row in odd index color: white
+- each row has only vertical border between columns

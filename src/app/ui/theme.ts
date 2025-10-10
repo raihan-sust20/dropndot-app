@@ -16,7 +16,9 @@ const theme = createTheme({
       secondary: "#FCFCFC",
     },
     background: {
-      default: "#F5F5F5", // your custom body color
+      default: "#F5F5F5",
+      paper: "#F6F6F6",
+
     },
   },
   components: {

@@ -16,10 +16,14 @@ import SettingsOutlinedIcon from "@mui/icons-material/SettingsOutlined";
 import PersonAddAltOutlinedIcon from "@mui/icons-material/PersonAddAltOutlined";
 import { Theme, useTheme } from "@mui/material/styles";
 import { DRAWER_WIDTH } from "../ui.constant";
+import { usePathname, useRouter } from "next/navigation";
 
 export default function Sidebar() {
   const theme: Theme = useTheme();
-  const [selectedIndex, setSelectedIndex] = React.useState(0);
+  const router = useRouter();
+  const pathname = usePathname();
+  const pathSegments = pathname.split("/");
+  console.log('path segments:', pathSegments);
 
   const icons = [
     <PieChartOutlineOutlinedIcon
@@ -52,6 +56,25 @@ export default function Sidebar() {
     />,
   ];
 
+  const menuItemList = [
+    { label: "Dashboard", path: "/" },
+    { label: "Account Managers", path: "/account-managers" },
+    { label: "Tasks", path: "/tasks" },
+    { label: "Sales Teams", path: "/sales-teams" },
+    { label: "Vendors", path: "/vendors" },
+    { label: "Clients", path: "/clients/list" },
+    { label: "Settings", path: "/settings" },
+  ];
+
+  const isItemSelected = (itemPath: string) => {
+    if (itemPath === "/") {
+      return pathSegments.length === 2;
+    }
+
+    const target = itemPath.split("/")[1];
+    return pathSegments.includes(target);
+  };
+
   return (
     <Drawer
       variant="permanent"
@@ -74,19 +97,11 @@ export default function Sidebar() {
         }}
       >
         <List>
-          {[
-            "Dashboard",
-            "Account Managers",
-            "Tasks",
-            "Sales Teams",
-            "Vendors",
-            "Clients",
-            "Settings",
-          ].map((text, index) => (
-            <ListItem key={text} disablePadding>
+          {menuItemList.map((menuItem, index) => (
+            <ListItem key={menuItem.label} disablePadding>
               <ListItemButton
-                selected={selectedIndex === index}
-                onClick={() => setSelectedIndex(index)}
+                selected={isItemSelected(menuItem.path)}
+                onClick={() => router.push(menuItem.path)}
                 sx={{
                   color: theme.palette.primary.light,
                   fontSize: theme.typography.body1.fontSize,
@@ -115,7 +130,7 @@ export default function Sidebar() {
                 >
                   {icons[index]}
                 </ListItemIcon>
-                <ListItemText primary={text} />
+                <ListItemText primary={menuItem.label} />
               </ListItemButton>
             </ListItem>
           ))}

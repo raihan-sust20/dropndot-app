@@ -25,7 +25,7 @@ export default function ClientsLayout({
       >
         <Link
           component={NextLink}
-          href="/dashboard"
+          href="/"
           underline="none"
           color="textPrimary"
           sx={{

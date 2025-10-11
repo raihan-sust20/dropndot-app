@@ -1,8 +1,8 @@
 "use client";
 
 import React, { useEffect, useState } from "react";
-import axios from 'axios';
-import * as R from 'ramda';
+import axios from "axios";
+import * as R from "ramda";
 import {
   Box,
   Button,
@@ -41,10 +41,7 @@ function descendingComparator<T>(a: T, b: T, orderBy: keyof T) {
   return 0;
 }
 
-function getComparator(
-  order: Order,
-  orderBy
-): (a, b) => number {
+function getComparator(order: Order, orderBy): (a, b) => number {
   return order === "desc"
     ? (a, b) => descendingComparator(a, b, orderBy)
     : (a, b) => -descendingComparator(a, b, orderBy);
@@ -96,10 +93,10 @@ function getComparator(
 const formatClientList = (clientList: Client[]) => {
   return R.map((clientItem: Client) => {
     const parsedDateOfBirth = parseISO(clientItem.dateOfBirth);
-    const formattedDateOfBirth = lightFormat(parsedDateOfBirth, 'MM/dd/yyyy');
-    return R.assoc('dateOfBirth', formattedDateOfBirth, clientItem);
-
-}, clientList)}
+    const formattedDateOfBirth = lightFormat(parsedDateOfBirth, "MM/dd/yyyy");
+    return R.assoc("dateOfBirth", formattedDateOfBirth, clientItem);
+  }, clientList);
+};
 
 export default function ClientsPage() {
   const theme = useTheme();
@@ -146,19 +143,19 @@ export default function ClientsPage() {
   //         `${c.name},${c.address},${c.date},${c.email},${c.cell},${c.comments}`
   //     )
   //     .join("\n");
-  
+
   //   const csvContent = headers + rows;
-  
+
   //   // Create CSV blob
   //   const blob = new Blob([csvContent], { type: "text/csv;charset=utf-8;" });
   //   const url = URL.createObjectURL(blob);
-  
+
   //   // Use an invisible link via React instead of raw DOM
   //   const tempLink = document.createElement("a");
   //   tempLink.href = url;
   //   tempLink.download = "clients.csv";
   //   tempLink.click();
-  
+
   //   // Clean up blob URL
   //   URL.revokeObjectURL(url);
   // };
@@ -171,13 +168,12 @@ export default function ClientsPage() {
           `${c.name},${c.address},${c.dateOfBirth},${c.email},${c.cellNumber},${c.comments}`
       )
       .join("\n");
-  
+
     const csvContent = headers + rows;
     const blob = new Blob([csvContent], { type: "text/csv;charset=utf-8;" });
-  
+
     saveAs(blob, "clients.csv"); // ✅ automatically triggers download
   };
-  
 
   return (
     <Box
@@ -236,7 +232,7 @@ export default function ClientsPage() {
         >
           <Table>
             <TableHead>
-              <TableRow sx={{ backgroundColor: "rgba(114, 158, 90, 0.2)"}}>
+              <TableRow sx={{ backgroundColor: "rgba(114, 158, 90, 0.2)" }}>
                 {[
                   { id: "name", label: "Client Name" },
                   { id: "address", label: "Address" },
@@ -249,9 +245,21 @@ export default function ClientsPage() {
                     key={col.id}
                     sortDirection={orderBy === col.id ? order : false}
                     sx={{
-                      fontWeight: 'fontWeightMedium',
+                      fontWeight: "fontWeightMedium",
                       borderBottom: "none",
-                      borderRight: "1px solid #ccc"                      
+                      borderRight: "1px solid #ccc",
+                      cursor: "pointer", // makes it clear columns are clickable
+                      transition: "all 0.2s ease",
+                      "&:hover": {
+                        backgroundColor: "primary.main",
+                        color: "white",
+                        "& .MuiTableSortLabel-root": {
+                          color: "white",
+                        },
+                        "& .MuiTableSortLabel-icon": {
+                          color: "white !important",
+                        },
+                      },
                     }}
                   >
                     <TableSortLabel

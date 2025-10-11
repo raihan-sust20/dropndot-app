@@ -1,5 +1,4 @@
-- add useEffect to fetch data from backend.
-- add proper error handling if fetching data from backend is failed.
-- while client list data is being fetched from backend show a indeterminant
-circular progress bar
-- add event handler for download csv event to download client list data as csv file
+update table cell appearnce on hover to following:
+
+- background color to primary
+- text color to white
